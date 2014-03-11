@@ -5,6 +5,7 @@ from flask import render_template
 from alchemyapi import AlchemyAPI
 import json
 
+import urllib
 
 from datetime import timedelta
 from flask import make_response, request, current_app
@@ -54,17 +55,17 @@ def crossdomain(origin=None, methods=None, headers=None,
 
 app = Flask(__name__, static_folder='static', static_url_path='')
 
-@app.route('/', methods=['POST'])
+@app.route('/sentimenturl', methods=['POST'])
 @crossdomain(origin="*")
 def my_form_post():
     try:
         url = request.form['url']
         alchemyapi = AlchemyAPI()
         response = alchemyapi.sentiment('url', url)
-        result = 0.0
+        result = str(0.0)
         if response['status'] == 'OK':
             result =  str(response['docSentiment']['score'])
-        print 'Result: ', result
+        print 'Result: ', str(response)
         return result
     except Exception as e:
         print e
