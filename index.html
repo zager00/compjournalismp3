@@ -7,14 +7,22 @@
 <body>
 	<script>
 		$(function() {
+			$.post( "http://54.214.40.248:5000/sentimenturl", {url: "http://en.wikipedia.org/wiki/Happiness"} )
+			.done(function( data ) {
+				$('#result1').html('<p>' + data + '</p>')
+			});
 
-				$.post( "http://54.214.40.248:5000", {url: "http://en.wikipedia.org/wiki/Poetry"} )
-				.done(function( data ) {
-					alert( "Sentiment: " + data );
-				});
-
+			$.post( "http://54.214.40.248:5000/sentimenturl", {url: "http://en.wikipedia.org/wiki/Murder"} )
+			.done(function( data ) {
+				$('#result2').html('<p>' + data + '</p>')
+			});
 		});
 	</script>
-	<div id="result"></div>
+	<p> The sentiment for <a href="http://en.wikipedia.org/wiki/Happiness">"http://en.wikipedia.org/wiki/Happiness"</a> is:</p>
+	<div id="result1"></div>
+
+	<br>
+	<p> The sentiment for <a href="http://en.wikipedia.org/wiki/Murder">"http://en.wikipedia.org/wiki/Murder"</a> is:</p>
+	<div id="result2"></div>
 </body>
 </html>
