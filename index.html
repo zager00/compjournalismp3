@@ -7,11 +7,12 @@
 <body>
 	<script>
 		$(function() {
-			$.post( "http://54.214.40.248:5000", {url: "http://en.wikipedia.org/wiki/Poetry"}, function( data ) {
-				window.alert(data);
-			  $("#result").html( data );
-			  window.alert("TESTO");
-			});
+
+				$.post( "http://54.214.40.248:5000", {url: "http://en.wikipedia.org/wiki/Poetry"} )
+				.done(function( data ) {
+					alert( "Sentiment: " + data );
+				});
+
 		});
 	</script>
 	<div id="result"></div>
