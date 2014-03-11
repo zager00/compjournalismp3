@@ -7,12 +7,12 @@
 <body>
 	<script>
 		$(function() {
-			$.post( "http://54.214.40.248:5000/sentimenturl", {url: "http://en.wikipedia.org/wiki/Happiness"} )
+			$.get( "http://54.214.40.248:5000/sentimenturl", {url: "http://en.wikipedia.org/wiki/Happiness"} )
 			.done(function( data ) {
 				$('#result1').html('<p>' + data + '</p>')
 			});
 
-			$.post( "http://54.214.40.248:5000/sentimenturl", {url: "http://en.wikipedia.org/wiki/Murder"} )
+			$.get( "http://54.214.40.248:5000/sentimenturl", {url: "http://en.wikipedia.org/wiki/Murder"} )
 			.done(function( data ) {
 				$('#result2').html('<p>' + data + '</p>')
 			});
