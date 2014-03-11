@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<html>
+<head>
+<script src="jquery-1.11.0.min.js"></script>
+</head>
+<body>
+	<script>
+		$(function() {
+			$.post( "http://54.214.40.248:5001/sentiment", {url: "http://en.wikipedia.org/wiki/Poetry"}, function( data ) {
+				window.alert(data);
+			  $("#result").html( data );
+			  window.alert("TESTO");
+			});
+		});
+	</script>
+	<div id="result"></div>
+</body>
+</html>
