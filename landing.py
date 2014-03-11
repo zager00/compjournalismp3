@@ -11,6 +11,26 @@ from datetime import timedelta
 from flask import make_response, request, current_app
 from functools import update_wrapper
 
+from werkzeug.contrib.cache import SimpleCache
+
+CACHE_TIMEOUT = 60 * 10
+
+cache = SimpleCache()
+
+class cached(object):
+
+    def __init__(self, timeout=None):
+        self.timeout = timeout or CACHE_TIMEOUT
+
+    def __call__(self, f):
+        def decorator(*args, **kwargs):
+            response = cache.get(request.args.get('url'))
+            if response is None:
+                response = f(*args, **kwargs)
+                cache.set(request.args.get('url'), response, self.timeout)
+            return response
+        return decorator
+
 
 def crossdomain(origin=None, methods=None, headers=None,
                 max_age=21600, attach_to_all=True,
@@ -57,6 +77,7 @@ app = Flask(__name__, static_folder='static', static_url_path='')
 
 @app.route('/sentimenturl', methods=['GET'])
 @crossdomain(origin="*")
+@cached()
 def my_form_post():
     try:
         url = request.args.get('url')
