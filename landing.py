@@ -55,11 +55,11 @@ def crossdomain(origin=None, methods=None, headers=None,
 
 app = Flask(__name__, static_folder='static', static_url_path='')
 
-@app.route('/sentimenturl', methods=['POST'])
+@app.route('/sentimenturl', methods=['GET'])
 @crossdomain(origin="*")
 def my_form_post():
     try:
-        url = request.form['url']
+        url = request.args.get('url')
         alchemyapi = AlchemyAPI()
         response = alchemyapi.sentiment('url', url)
         result = str(0.0)
